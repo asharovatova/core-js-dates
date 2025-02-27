@@ -115,13 +115,8 @@ function getNextFriday(date) {
  * 2, 2024 => 29
  */
 function getCountDaysInMonth(month, year) {
-  // Get first day of the next month
   const nextMonthDate = new Date(year, month);
-
-  // Get last day of the target month
   const targetMonthDate = new Date(nextMonthDate - 1);
-
-  // Last day num equals the number of days in month
   const daysNum = targetMonthDate.getDate();
 
   return daysNum;
@@ -138,8 +133,10 @@ function getCountDaysInMonth(month, year) {
  * '2024-02-01T00:00:00.000Z', '2024-02-02T00:00:00.000Z'  => 2
  * '2024-02-01T00:00:00.000Z', '2024-02-12T00:00:00.000Z'  => 12
  */
-function getCountDaysOnPeriod(/* dateStart, dateEnd */) {
-  throw new Error('Not implemented');
+function getCountDaysOnPeriod(dateStart, dateEnd) {
+  const daysToMs = 24 * 60 * 60 * 1000;
+
+  return (new Date(dateEnd) - new Date(dateStart)) / daysToMs + 1;
 }
 
 /**
