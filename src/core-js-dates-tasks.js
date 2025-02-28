@@ -257,8 +257,15 @@ function getNextFridayThe13th(/* date */) {
  * Date(2024, 5, 1) => 2
  * Date(2024, 10, 10) => 4
  */
-function getQuarter(/* date */) {
-  throw new Error('Not implemented');
+function getQuarter(date) {
+  const yearStart = new Date(date.getFullYear(), 0);
+  const diff = date - yearStart;
+
+  const quarterInMs = (1000 * 60 * 60 * 24 * 365) / 4;
+
+  const quarter = Math.ceil(diff / quarterInMs);
+
+  return quarter;
 }
 
 /**
