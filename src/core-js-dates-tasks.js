@@ -207,8 +207,24 @@ function formatDate(date) {
  * 12, 2023 => 10
  * 1, 2024 => 8
  */
-function getCountWeekendsInMonth(/* month, year */) {
-  throw new Error('Not implemented');
+function getCountWeekendsInMonth(month, year) {
+  function isWeekend(dayNum) {
+    return dayNum === 0 || dayNum === 6;
+  }
+
+  let counter = 0;
+
+  const date = new Date(Date.UTC(year, month - 1));
+
+  do {
+    if (isWeekend(date.getUTCDay())) {
+      counter += 1;
+    }
+
+    date.setUTCDate(date.getUTCDate() + 1);
+  } while (date.getUTCMonth() === month - 1);
+
+  return counter;
 }
 
 /**
@@ -288,6 +304,31 @@ function getQuarter(date) {
  */
 function getWorkSchedule(/* period, countWorkDays, countOffDays */) {
   throw new Error('Not implemented');
+  // const schedule = [];
+
+  // const [sD, sM, sY] = period.start.split('-');
+  // const [eD, eM, eY] = period.end.split('-');
+
+  // const start = new Date(sY, sM - 1, sD);
+  // const end = new Date(eY, eM - 1, eD);
+
+  // const dayInMs = 1000 * 60 * 60 * 24;
+
+  // let date = start;
+
+  // function format(dateObj) {
+  //   return `${String(dateObj.getDate()).padStart(2, 0)}-${String(dateObj.getMonth()).padStart(2, 0)}-${dateObj.getFullYear()}`;
+  // }
+
+  // while (date < end) {
+  //   for (let i = 1; i <= countWorkDays; i += 1) {
+  //     schedule.push(format(date));
+  //     date.setDate(date.getDate() + i);
+  //   }
+  // }
+  // date = new Date(date.getTime() + (countOffDays - 1) * dayInMs);
+
+  // return schedule;
 }
 
 /**
