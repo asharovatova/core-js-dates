@@ -315,33 +315,33 @@ function getQuarter(date) {
  * { start: '01-01-2024', end: '15-01-2024' }, 1, 3 => ['01-01-2024', '05-01-2024', '09-01-2024', '13-01-2024']
  * { start: '01-01-2024', end: '10-01-2024' }, 1, 1 => ['01-01-2024', '03-01-2024', '05-01-2024', '07-01-2024', '09-01-2024']
  */
-function getWorkSchedule(/* period, countWorkDays, countOffDays */) {
-  throw new Error('Not implemented');
-  // const schedule = [];
+function getWorkSchedule(period, countWorkDays, countOffDays) {
+  const schedule = [];
 
-  // const [sD, sM, sY] = period.start.split('-');
-  // const [eD, eM, eY] = period.end.split('-');
+  const [sD, sM, sY] = period.start.split('-');
+  const [eD, eM, eY] = period.end.split('-');
 
-  // const start = new Date(sY, sM - 1, sD);
-  // const end = new Date(eY, eM - 1, eD);
+  const start = new Date(sY, sM - 1, sD);
+  const end = new Date(eY, eM - 1, eD);
 
-  // const dayInMs = 1000 * 60 * 60 * 24;
+  const date = start;
 
-  // let date = start;
+  function format(dateObj) {
+    return `${String(dateObj.getDate()).padStart(2, 0)}-${String(dateObj.getMonth() + 1).padStart(2, 0)}-${dateObj.getFullYear()}`;
+  }
 
-  // function format(dateObj) {
-  //   return `${String(dateObj.getDate()).padStart(2, 0)}-${String(dateObj.getMonth()).padStart(2, 0)}-${dateObj.getFullYear()}`;
-  // }
+  while (date <= end) {
+    for (let i = 1; i <= countWorkDays; i += 1) {
+      if (date <= end) {
+        schedule.push(format(date));
+      }
 
-  // while (date < end) {
-  //   for (let i = 1; i <= countWorkDays; i += 1) {
-  //     schedule.push(format(date));
-  //     date.setDate(date.getDate() + i);
-  //   }
-  // }
-  // date = new Date(date.getTime() + (countOffDays - 1) * dayInMs);
+      date.setDate(date.getDate() + 1);
+    }
+    date.setDate(date.getDate() + countOffDays);
+  }
 
-  // return schedule;
+  return schedule;
 }
 
 /**
